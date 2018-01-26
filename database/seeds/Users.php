@@ -34,14 +34,14 @@ class Users extends Seeder
          */
         User::create([
             'id' => 1,
-            '_id' => env('SYSTEM_USER_ID'),
+            '_id' => 'F5E7D0F5-D347-444F-BA67-4DEBF3F87413',
             'api_key' => null,
             // Nobody must ever be able to log into this account
             'username' => Uuid::generate(4),
             'password' => Hash::make(Uuid::generate(4)),
             'first_name' => 'System',
             'last_name' => 'User',
-            'email' => env('SYSTEM_USER_EMAIL'),
+            'email' => 'system@example.com',
             'created_by' => 1,
             'updated_by' => 1,
         ]);
