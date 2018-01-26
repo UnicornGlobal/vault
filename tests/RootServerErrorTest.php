@@ -20,37 +20,12 @@ class RootServerErrorTest extends TestCase
         );
     }
 
-    public function testUnauthorized()
-    {
-        $this->get('/api/users/me');
-
-        $this->assertEquals(
-            'Unauthorized.',
-            $this->response->getContent()
-        );
-    }
-
     public function testFailedLogin()
     {
         $this->post('/login');
 
         $this->assertEquals(
             'Unauthorized.',
-            $this->response->getContent()
-        );
-
-        $this->assertEquals(
-            '401',
-            $this->response->status()
-        );
-    }
-
-    public function testRegisterWithoutKey()
-    {
-        $this->post('/register/email');
-
-        $this->assertEquals(
-            '{"error":"Missing Registration Key"}',
             $this->response->getContent()
         );
 

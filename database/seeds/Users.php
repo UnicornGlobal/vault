@@ -34,7 +34,7 @@ class Users extends Seeder
          */
         User::create([
             'id' => 1,
-            '_id' => 'F5E7D0F5-D347-444F-BA67-4DEBF3F87413',
+            '_id' => '55A80FE-CA2E-4F69-9E36-81C9237D99B2',
             'api_key' => null,
             // Nobody must ever be able to log into this account
             'username' => Uuid::generate(4),
