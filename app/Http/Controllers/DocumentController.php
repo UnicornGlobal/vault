@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Document;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -46,14 +47,25 @@ class DocumentController extends Controller
         return response()->json($document, 201);
     }
 
+    /**
+     * Receives the document UUID, retrieves the file, decrypts it
+     * then returns the image as a base64 string
+     * @param $docId
+     * @return string
+     */
     public function retrieveDoc($docId)
     {
-        //return all docs
-    }
+        $this->validateDocumentId($docId);
 
-    public function listDocs($userId)
-    {
-        //list all docs by a user
+        $document = Document::loadFromUuid($docId);
+
+        $contents = Storage::get($document->path);
+
+        $key = decrypt($document->key);
+
+        $image = $this->decryptFile($contents, $key);
+
+        return base64_encode($image);
     }
 
     /**
