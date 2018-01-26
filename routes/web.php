@@ -68,6 +68,12 @@ $router->group(
             $router->get('/', function () use ($router) {
                 return $router->app->version();
             });
+
+            $router->post('/docs/upload', 'DocumentController@saveDoc');
+
+            $router->get('/docs/retrieve/{docId}', 'DocumentController@retrieveDoc');
+
+            $router->post('/docs/list/{userId}', 'DocumentController@listDocs');
         });
     }
 );
