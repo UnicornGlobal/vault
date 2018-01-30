@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
+    /**
+     * Save docs as encrypted blobs in the DB
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function saveDoc(Request $request)
     {
         $this->validate($request, [
