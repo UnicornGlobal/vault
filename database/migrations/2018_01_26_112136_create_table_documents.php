@@ -16,11 +16,10 @@ class CreateTableDocuments extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('_id')->unique();
-            $table->string('title');
+            $table->string('entity_id')->unique();
             $table->string('mimetype');
-            $table->binary('file_blob');
             $table->string('hash');
-            $table->string('file_key');
+            $table->binary('blob');
             $table->timestamps();
             $table->softDeletes();
         });

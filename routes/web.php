@@ -64,14 +64,14 @@ $router->group(
         /**
          * Authenticated Routes
          */
-        $router->group(['prefix' => 'api', 'middleware' => ['auth:api', 'throttle']], function () use ($router) {
+        $router->group(['prefix' => 'api'], function () use ($router) {
             $router->get('/', function () use ($router) {
                 return $router->app->version();
             });
 
-            $router->post('/docs/upload', 'DocumentController@saveDoc');
+            $router->post('/document/upload', 'DocumentController@saveDocument');
 
-            $router->get('/docs/retrieve/{docId}', 'DocumentController@retrieveDoc');
+            $router->post('/document/retrieve/{documentId}', 'DocumentController@retrieveDocument');
         });
     }
 );

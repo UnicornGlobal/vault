@@ -14,15 +14,15 @@ class UserTables extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements('id'); // New
-            $table->uuid('_id')->unique(); // New
-            $table->uuid('api_key')->unique()->nullable(); // New
-            $table->string('username')->unique();
-            $table->string('password'); // At least they has it :D
+            $table->bigIncrements('id');
+            $table->uuid('_id')->unique();
+            $table->uuid('client_id')->unique();
+            $table->uuid('client_key')->unique();
+            $table->string('ip_address');
 
             $table->rememberToken();
             $table->timestamps();
-            $table->softDeletes(); // New
+            $table->softDeletes();
         });
     }
 

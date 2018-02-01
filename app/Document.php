@@ -22,9 +22,10 @@ class Document extends BaseModel {
      */
     protected $fillable = [
         '_id',
-        'verified_by',
-        'title',
-        'path'
+        'entity_id',
+        'mimetype',
+        'hash',
+        'blob',
     ];
 
     /**
@@ -34,10 +35,7 @@ class Document extends BaseModel {
      */
     protected $visible = [
         '_id',
-        'name',
-        'verified_by',
-        'title',
-        'path'
+        'hash'
     ];
 
     /**

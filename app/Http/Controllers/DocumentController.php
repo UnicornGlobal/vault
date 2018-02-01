@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+use Illuminate\Encryption\Encrypter;
+use Illuminate\Support\Facades\Config;
 
 class DocumentController extends Controller
 {
@@ -13,65 +18,60 @@ class DocumentController extends Controller
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function saveDoc(Request $request)
+    public function saveDocument(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|string',
-            'photo' => 'required|image|file|mimes:png,jpeg',
+            'entity_id' => 'required',
+            'encrypt_secret' => 'required',
+            'document_key' => 'required',
+            'document' => 'required|mimes:jpg,png,jpeg,pdf'
         ]);
 
-        $file = $request->file('photo');
+        $fields = $request->only('entity_id', 'encrypt_secret', 'document_key', 'document');
+
+        $file = $request->file('document');
 
         if (is_null($file)) {
             throw new \Exception('No Document Provided');
         }
 
-        $filename = sprintf('%s.%s', Uuid::generate(4)->string, $file->extension());
-
-        $key = str_replace('-', '', Uuid::generate(4)->string);
-        $encyptedFile = $this->encryptFile($file, $key);
-
-        Storage::putFileAs(
-            '',
-            $encyptedFile,
-            $filename
-        );
-
-        Storage::setVisibility($filename, 'private');
+        //Encrypt file into blob
+        $encyptedFile = $this->encryptFile($file, $fields['document_key']);
 
         $document = new Document();
         $document->_id = Uuid::generate(4)->string;
-        $document->title = $request->get('title');
+        $document->entity_id = $fields['entity_id'];
         $document->mimetype = $file->extension();
-        $document->path = Storage::url($filename);
-        $document->hash = md5_file($file->getRealPath());
-        $document->file_key = encrypt($key);
-        $document->created_by = Auth::user()->id;
-        $document->updated_by = Auth::user()->id;
+        $document->hash = md5_file($file);
+        $document->blob = $encyptedFile;
         $document->save();
 
-        return response()->json($document, 201);
+        return response()->json($document, 200);
     }
 
     /**
      * Receives the document UUID, retrieves the file, decrypts it
      * then returns the image as a base64 string
-     * @param $docId
+     * @param Request $request
+     * @param $documentId
      * @return string
      */
-    public function retrieveDoc($docId)
+    public function retrieveDocument(Request $request, $documentId)
     {
-        $this->validateDocumentId($docId);
+        $this->validate($request, [
+            'entity_id' => 'required',
+            'decrypt_secret' => 'required',
+            'document_key' => 'required',
+            'hash' => 'required'
+        ]);
 
-        $document = Document::loadFromUuid($docId);
+        $fields = $request->only('entity_id', 'decrypt_secret', 'document_key', 'hash');
 
-        $contents = Storage::get($document->path);
+        $document = Document::loadFromUuid($documentId);
 
-        $key = decrypt($document->key);
+        $decryptedDocument = $this->decryptFile($document->blob, $fields['document_key']);
 
-        $image = $this->decryptFile($contents, $key);
-
-        return base64_encode($image);
+        return base64_encode($decryptedDocument);
     }
 
     /**
@@ -84,19 +84,20 @@ class DocumentController extends Controller
     private function encryptFile(UploadedFile $file, $key)
     {
         $encryptor = new Encrypter($key, Config::get('app.cipher'));
-        return $encryptor->encryptString($file);
+        $actualFile = File::get($file->getRealPath());
+        return $encryptor->encrypt($actualFile, false);
     }
 
     /**
      * Decrypts the uploaded file, given the key
-     * @param UploadedFile $file
+     * @param $encryptedDocument
      * @param $key
      * @return string
      */
-    private function decryptFile(UploadedFile $file, $key)
+    private function decryptFile($encryptedDocument, $key)
     {
         $encryptor = new Encrypter($key, Config::get('app.cipher'));
-        return $encryptor->decrypt($file);
+        return $encryptor->decrypt($encryptedDocument, false);
     }
 
 }

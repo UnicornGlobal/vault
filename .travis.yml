@@ -16,8 +16,6 @@ before_install:
 - sudo mysql_upgrade
 - mysql -e 'CREATE DATABASE IF NOT EXISTS vault;'
 - composer self-update
-- composer config github-oauth.github.com ${GITHUB_TOKEN}
-- composer validate --no-check-all --ansi
 - composer install -n
 - cp .env.example .env
 - php artisan migrate

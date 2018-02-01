@@ -19,7 +19,6 @@ class CreateTableEntities extends Migration
             $table->string('entity_key')->unique();
             $table->string('encoding_key')->unique();
             $table->string('decoding_key')->unique();
-            $table->string('ip_address')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

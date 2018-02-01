@@ -59,10 +59,6 @@ $app->singleton(
 |
 */
 
-// $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
-// ]);
-
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'register' => App\Http\Middleware\RegisterKeyMiddleware::class,
@@ -73,7 +69,6 @@ $app->routeMiddleware([
     'security' => App\Http\Middleware\SecurityHeaders::class,
     'csp' => App\Http\Middleware\ContentSecurityPolicyHeaders::class,
     'cors' => \Barryvdh\Cors\HandleCors::class,
-    'roles' => \App\Http\Middleware\RolesMiddleware::class,
 ]);
 
 /*
@@ -97,13 +92,7 @@ $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 // CORS
 $app->register(Barryvdh\Cors\ServiceProvider::class);
 
-// Mail
-$app->register(\Illuminate\Mail\MailServiceProvider::class);
-
-$app->register(\Illuminate\Auth\Passwords\PasswordResetServiceProvider::class);
-
 $app->configure('cors');
-$app->configure('mail');
 
 /*
 |--------------------------------------------------------------------------

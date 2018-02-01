@@ -13,10 +13,10 @@ class AppIdMiddleware
      * Set APP_ID in your .env
      * Request with `App: your-key-here`
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string  $role
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
+     * @throws \Exception
      */
     public function handle($request, Closure $next)
     {
