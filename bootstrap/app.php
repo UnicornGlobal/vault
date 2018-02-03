@@ -62,6 +62,7 @@ $app->singleton(
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'register' => App\Http\Middleware\RegisterKeyMiddleware::class,
+    'client' => App\Http\Middleware\ClientMiddleware::class,
     'appid' => App\Http\Middleware\AppIdMiddleware::class,
     'throttle' => App\Http\Middleware\ThrottleRequests::class,
     'nocache' => App\Http\Middleware\NoCache::class,
@@ -84,10 +85,6 @@ $app->routeMiddleware([
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
-
-// JWTs
-$app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 // CORS
 $app->register(Barryvdh\Cors\ServiceProvider::class);

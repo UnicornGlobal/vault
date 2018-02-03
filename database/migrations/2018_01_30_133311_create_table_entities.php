@@ -16,7 +16,8 @@ class CreateTableEntities extends Migration
         Schema::create('entities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('_id')->unique();
-            $table->string('entity_key')->unique();
+            $table->string('access_key')->unique();
+            $table->string('access_secret')->unique();
             $table->string('encoding_key')->unique();
             $table->string('decoding_key')->unique();
             $table->timestamps();

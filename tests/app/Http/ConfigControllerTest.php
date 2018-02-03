@@ -10,7 +10,13 @@ class ConfigControllerTest extends TestCase
     public function testGetConfig()
     {
         // The test user in our seed
-        $this->get('/config/app', [ 'App' => env('APP_ID'), 'Debug-Token' => env('DEBUG_KEY') ]);
+        $user = factory('App\User')->make();
+
+        $this->get('/config/app', [
+            'App' => env('APP_ID'),
+            'Client' => $user->app_id,
+            'Authorization' => $user->app_key,
+        ]);
 
         $this->assertEquals('200', $this->response->status());
 
@@ -40,10 +46,10 @@ class ConfigControllerTest extends TestCase
         $this->get('/config/app');
 
         $this->assertEquals(
-            '{"error":"There was a problem validating the request."}',
+            'Unauthorized.',
             $this->response->getContent()
         );
 
-        $this->assertEquals('500', $this->response->status());
+        $this->assertEquals('401', $this->response->status());
     }
 }

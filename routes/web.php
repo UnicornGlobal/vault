@@ -25,41 +25,10 @@ use Illuminate\Support\Facades\Auth;
 $router->group(
     [
         'prefix' => '',
-        'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors']
+        'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors', 'client', 'appid']
     ],
     function () use ($router) {
-
-    /**
-     * Routes that do not require a JWT
-     *
-     * Different routes have different combinations based on use case.
-     */
-
-        /**
-         *  Ensures that retrieving config is allowed with the correct app id
-         *
-         *  Ensure APP_ID in your .env
-         *  Request with `App: your-key-here`
-         */
-        $router->group(['middleware' => ['throttle:10,1', 'appid']], function () use ($router) {
-            $router->get('/config/app', 'ConfigController@getAppConfig');
-        });
-
-        /**
-         * 10 Login and Logouts per minute
-         */
-        $router->group(['middleware' => 'throttle:10,1'], function () use ($router) {
-            $router->post('/login', 'AuthController@postLogin');
-            $router->post('/logout', 'AuthController@logout');
-        });
-
-        /**
-         * What you set this throttle to depends on your use case.
-         * JWT refresh
-         */
-        $router->group(['middleware' => ['jwt.refresh', 'throttle:10,1']], function () use ($router) {
-            $router->post('/refresh', 'AuthController@refresh');
-        });
+        $router->get('/config/app', 'ConfigController@getAppConfig');
 
         /**
          * Authenticated Routes
@@ -72,6 +41,8 @@ $router->group(
             $router->post('/document/upload', 'DocumentController@saveDocument');
 
             $router->post('/document/retrieve/{documentId}', 'DocumentController@retrieveDocument');
+
+            $router->post('/register', 'RegistrationController@registerEntity');
         });
     }
 );

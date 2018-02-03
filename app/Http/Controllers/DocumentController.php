@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use App\Entity;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Encryption\Encrypter;
 use Illuminate\Support\Facades\Config;
@@ -35,6 +37,11 @@ class DocumentController extends Controller
             throw new \Exception('No Document Provided');
         }
 
+        $entity = Entity::loadFromUuid($fields['entity_id']);
+        if(!$fields['encrypt_secret'] === $entity->encoding_key) {
+            throw new \Exception('There was a problem validating the encrypt key');
+        }
+
         //Encrypt file into blob
         $encyptedFile = $this->encryptFile($file, $fields['document_key']);
 
@@ -55,6 +62,7 @@ class DocumentController extends Controller
      * @param Request $request
      * @param $documentId
      * @return string
+     * @throws \Exception
      */
     public function retrieveDocument(Request $request, $documentId)
     {
@@ -66,6 +74,11 @@ class DocumentController extends Controller
         ]);
 
         $fields = $request->only('entity_id', 'decrypt_secret', 'document_key', 'hash');
+
+        $entity = Entity::loadFromUuid($fields['entity_id']);
+        if(!$fields['decrypt_secret'] === $entity->decoding_key) {
+            throw new \Exception('There was a problem validating the decrypt key');
+        }
 
         $document = Document::loadFromUuid($documentId);
 

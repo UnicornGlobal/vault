@@ -7,16 +7,12 @@ use Closure;
 class AppIdMiddleware
 {
     /**
-     * Ensures that there is an App header present, and that is
-     * matches the env setting
+     * Run the request filter.
      *
-     * Set APP_ID in your .env
-     * Request with `App: your-key-here`
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
      * @return mixed
-     * @throws \Exception
      */
     public function handle($request, Closure $next)
     {

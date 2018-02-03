@@ -20,21 +20,6 @@ class RootServerErrorTest extends TestCase
         );
     }
 
-    public function testFailedLogin()
-    {
-        $this->post('/login');
-
-        $this->assertEquals(
-            'Unauthorized.',
-            $this->response->getContent()
-        );
-
-        $this->assertEquals(
-            '401',
-            $this->response->status()
-        );
-    }
-
     public function testBadMethod()
     {
         $this->delete('/config/app');
@@ -61,7 +46,11 @@ class RootServerErrorTest extends TestCase
 
         $user = factory('App\User')->make();
 
-        $this->actingAs($user)->get('/api');
+        $this->actingAs($user)->get('/api', [
+            'App' => env('APP_ID'),
+            'Client' => $user->app_id,
+            'Authorization' => $user->app_key,
+        ]);
 
         $this->assertEquals(
             'Lumen (5.5.2) (Laravel Components 5.5.*)',

@@ -13,7 +13,7 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
+        'app_id' => 'B3D74DE8-A8AA-495E-A652-D779CC6F044C',
+        'app_key' => '1779234-44D9-4AE1-A864-3DDB1739B970',
     ];
 });
