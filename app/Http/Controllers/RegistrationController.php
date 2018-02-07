@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Entity;
 use Webpatser\Uuid\Uuid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class RegistrationController extends Controller
 {
@@ -19,19 +21,27 @@ class RegistrationController extends Controller
     public function registerEntity(Request $request)
     {
         $this->validate($request, [
-            'access_key' => 'required',
-            'access_secret' => 'required',
+            'key' => 'required',
+            'secret' => 'required',
         ]);
 
-        $fields = $request->only('access_key', 'access_secret');
+        $fields = $request->only('key', 'secret');
+
+        if (Entity::where('key', $fields['key'])->exists()) {
+            throw new \Exception('Entity with that key already exists.');
+        }
+
+        $user = User::where('app_id', $request->header('Client'))->first();
 
         try {
             $entity = new Entity();
             $entity->_id = Uuid::generate(4)->string;
-            $entity->access_key = $fields['access_key'];
-            $entity->access_secret = $fields['access_secret'];
-            $entity->encoding_key = Uuid::generate(4)->string;
-            $entity->decoding_key = Uuid::generate(4)->string;
+            $entity->key = $fields['key'];
+            $entity->secret = Hash::make($fields['secret']);
+            $entity->access_key = Uuid::generate(4)->string;
+            $entity->encode_key = Uuid::generate(4)->string;
+            $entity->decode_key = Uuid::generate(4)->string;
+            $entity->user_id = $user->id;
             $entity->save();
             return response()->json($entity, '200');
         } catch (\Exception $e) {

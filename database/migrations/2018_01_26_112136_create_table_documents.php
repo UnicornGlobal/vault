@@ -16,7 +16,7 @@ class CreateTableDocuments extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('_id')->unique();
-            $table->string('entity_id')->unique();
+            $table->bigInteger('entity_id')->unsigned();
             $table->string('mimetype');
             $table->string('hash');
             $table->binary('blob');

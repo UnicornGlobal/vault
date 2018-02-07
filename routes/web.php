@@ -38,11 +38,17 @@ $router->group(
                 return $router->app->version();
             });
 
-            $router->post('/document/upload', 'DocumentController@saveDocument');
+            $router->group(['middleware' => ['entity', 'encode']], function () use ($router) {
+                $router->post('/document/upload', 'DocumentController@saveDocument');
+            });
 
-            $router->post('/document/retrieve/{documentId}', 'DocumentController@retrieveDocument');
+            $router->group(['middleware' => ['entity', 'decode']], function () use ($router) {
+                $router->post('/document/retrieve/{documentId}', 'DocumentController@retrieveDocument');
+            });
 
-            $router->post('/register', 'RegistrationController@registerEntity');
+            $router->group(['middleware' => 'register'], function () use ($router) {
+                $router->post('/register', 'RegistrationController@registerEntity');
+            });
         });
     }
 );

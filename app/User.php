@@ -18,17 +18,7 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
      *
      * @var array
      */
-    protected $fillable = [
-        '_id',
-        'api_key',
-        'username',
-        'password',
-        'first_name',
-        'last_name',
-        'email',
-        'confirm_code',
-        'confirmed_at',
-    ];
+    protected $fillable = [];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,17 +26,9 @@ class User extends BaseModel implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
         'id',
-        'created_by',
-        'created_at',
-        'updated_by',
-        'updated_at',
-        'is_banned',
-        'api_key',
-        'confirm_code',
-        'confirmed_at',
-        'deleted_at',
+        'app_id',
+        'app_key',
+        'ip_address',
     ];
 }

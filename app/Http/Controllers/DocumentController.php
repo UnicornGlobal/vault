@@ -24,12 +24,11 @@ class DocumentController extends Controller
     {
         $this->validate($request, [
             'entity_id' => 'required',
-            'encrypt_secret' => 'required',
-            'document_key' => 'required',
+            'document_key' => 'required|size:32',
             'document' => 'required|mimes:jpg,png,jpeg,pdf'
         ]);
 
-        $fields = $request->only('entity_id', 'encrypt_secret', 'document_key', 'document');
+        $fields = $request->only('entity_id', 'document_key', 'document');
 
         $file = $request->file('document');
 
@@ -38,18 +37,18 @@ class DocumentController extends Controller
         }
 
         $entity = Entity::loadFromUuid($fields['entity_id']);
-        if(!$fields['encrypt_secret'] === $entity->encoding_key) {
-            throw new \Exception('There was a problem validating the encrypt key');
-        }
 
         //Encrypt file into blob
         $encyptedFile = $this->encryptFile($file, $fields['document_key']);
 
+        $entity = Entity::where('_id', $fields['entity_id'])->first();
+
         $document = new Document();
         $document->_id = Uuid::generate(4)->string;
-        $document->entity_id = $fields['entity_id'];
+        $document->entity_id = $entity->id;
         $document->mimetype = $file->extension();
         $document->hash = md5_file($file);
+        $document->size = sizeof($file);
         $document->blob = $encyptedFile;
         $document->save();
 

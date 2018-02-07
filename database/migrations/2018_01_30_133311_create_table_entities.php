@@ -16,10 +16,12 @@ class CreateTableEntities extends Migration
         Schema::create('entities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('_id')->unique();
-            $table->string('access_key')->unique();
-            $table->string('access_secret')->unique();
-            $table->string('encoding_key')->unique();
-            $table->string('decoding_key')->unique();
+            $table->string('key')->unique();
+            $table->string('secret')->unique();
+            $table->uuid('access_key')->unique();
+            $table->uuid('encode_key')->unique();
+            $table->uuid('decode_key')->unique();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });

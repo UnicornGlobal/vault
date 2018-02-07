@@ -64,6 +64,8 @@ $app->routeMiddleware([
     'register' => App\Http\Middleware\RegisterKeyMiddleware::class,
     'client' => App\Http\Middleware\ClientMiddleware::class,
     'appid' => App\Http\Middleware\AppIdMiddleware::class,
+    'entity' => App\Http\Middleware\EntityAccessMiddleware::class,
+    'encode' => App\Http\Middleware\EncodeAccessMiddleware::class,
     'throttle' => App\Http\Middleware\ThrottleRequests::class,
     'nocache' => App\Http\Middleware\NoCache::class,
     'hideserver' => App\Http\Middleware\ServerHeader::class,

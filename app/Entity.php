@@ -21,10 +21,11 @@ class Entity extends BaseModel {
      */
     protected $fillable = [
         '_id',
+        'key',
+        'secret',
         'access_key',
-        'access_secret',
-        'encoding_key',
-        'decoding_key',
+        'encode_key',
+        'decode_key',
     ];
 
     /**
@@ -34,8 +35,9 @@ class Entity extends BaseModel {
      */
     protected $visible = [
         '_id',
+        'key',
         'access_key',
-        'encoding_key',
-        'decoding_key',
+        'encode_key',
+        'decode_key',
     ];
 }

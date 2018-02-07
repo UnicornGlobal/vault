@@ -25,6 +25,7 @@ class Document extends BaseModel {
         'entity_id',
         'mimetype',
         'hash',
+        'size',
         'blob',
     ];
 
@@ -35,7 +36,8 @@ class Document extends BaseModel {
      */
     protected $visible = [
         '_id',
-        'hash'
+        'hash',
+        'size',
     ];
 
     /**
