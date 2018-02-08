@@ -23,6 +23,6 @@ class AppIdMiddleware
             return $next($request);
         }
 
-        throw new \Exception('There was a problem validating the request.');
+        return response('Unauthorized.', 401);
     }
 }

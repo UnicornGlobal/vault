@@ -30,6 +30,6 @@ class RegisterKeyMiddleware
 
         // It's important that all registration related errors say the same thing
         Log::error('Registration attempted without a registration key.');
-        return response()->json(['error' => 'Missing Registration Key'], 401);
+        return response('Unauthorized.', 401);
     }
 }

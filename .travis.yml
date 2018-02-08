@@ -23,4 +23,8 @@ before_install:
 - php artisan db:seed
 - composer dump-autoload
 - vendor/bin/phpunit --coverage-clover=coverage.xml
+- cat storage/logs/lumen.log
+after_success:
 - rm .env
+- bash <(curl -s https://codecov.io/bash)
+- echo "Unicorn Time"
