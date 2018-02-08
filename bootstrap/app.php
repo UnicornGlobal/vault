@@ -66,6 +66,7 @@ $app->routeMiddleware([
     'appid' => App\Http\Middleware\AppIdMiddleware::class,
     'entity' => App\Http\Middleware\EntityAccessMiddleware::class,
     'encode' => App\Http\Middleware\EncodeAccessMiddleware::class,
+    'decode' => App\Http\Middleware\DecodeAccessMiddleware::class,
     'throttle' => App\Http\Middleware\ThrottleRequests::class,
     'nocache' => App\Http\Middleware\NoCache::class,
     'hideserver' => App\Http\Middleware\ServerHeader::class,

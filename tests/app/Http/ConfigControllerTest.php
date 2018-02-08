@@ -36,7 +36,7 @@ class ConfigControllerTest extends TestCase
         $this->assertObjectHasAttribute('name', $result);
         $this->assertObjectHasAttribute('version', $result);
 
-        $this->assertEquals(env('API_URL'), $result->api_url);
+        $this->assertEquals(env('APP_URL'), $result->api_url);
         $this->assertEquals(env('APP_VERSION'), $result->version);
         $this->assertEquals(env('APP_NAME'), $result->name);
     }

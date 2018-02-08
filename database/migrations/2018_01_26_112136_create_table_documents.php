@@ -19,10 +19,12 @@ class CreateTableDocuments extends Migration
             $table->bigInteger('entity_id')->unsigned();
             $table->string('mimetype');
             $table->string('hash');
-            $table->binary('blob');
+            $table->integer('size');
             $table->timestamps();
             $table->softDeletes();
         });
+
+        DB::statement("ALTER TABLE documents ADD file MEDIUMBLOB NOT NULL");
     }
 
     /**

@@ -20,5 +20,6 @@ before_install:
 - cp .env.example .env
 - php artisan migrate
 - php artisan db:seed
+- composer dump-autoload
 - vendor/bin/phpunit --coverage-clover=coverage.xml
 - rm .env

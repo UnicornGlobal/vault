@@ -26,7 +26,7 @@ class Document extends BaseModel {
         'mimetype',
         'hash',
         'size',
-        'blob',
+        'file',
     ];
 
     /**

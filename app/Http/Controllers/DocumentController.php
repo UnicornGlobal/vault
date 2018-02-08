@@ -25,7 +25,7 @@ class DocumentController extends Controller
         $this->validate($request, [
             'entity_id' => 'required',
             'document_key' => 'required|size:32',
-            'document' => 'required|mimes:jpg,png,jpeg,pdf'
+            'document' => 'required|mimes:jpg,png,jpeg,pdf|min:2|max:15000'
         ]);
 
         $fields = $request->only('entity_id', 'document_key', 'document');
@@ -36,8 +36,6 @@ class DocumentController extends Controller
             throw new \Exception('No Document Provided');
         }
 
-        $entity = Entity::loadFromUuid($fields['entity_id']);
-
         //Encrypt file into blob
         $encyptedFile = $this->encryptFile($file, $fields['document_key']);
 
@@ -46,10 +44,10 @@ class DocumentController extends Controller
         $document = new Document();
         $document->_id = Uuid::generate(4)->string;
         $document->entity_id = $entity->id;
-        $document->mimetype = $file->extension();
+        $document->mimetype = $file->getMimeType();
         $document->hash = md5_file($file);
-        $document->size = sizeof($file);
-        $document->blob = $encyptedFile;
+        $document->size = filesize($file);
+        $document->file = $encyptedFile;
         $document->save();
 
         return response()->json($document, 200);
@@ -67,23 +65,24 @@ class DocumentController extends Controller
     {
         $this->validate($request, [
             'entity_id' => 'required',
-            'decrypt_secret' => 'required',
             'document_key' => 'required',
-            'hash' => 'required'
         ]);
 
-        $fields = $request->only('entity_id', 'decrypt_secret', 'document_key', 'hash');
-
-        $entity = Entity::loadFromUuid($fields['entity_id']);
-        if(!$fields['decrypt_secret'] === $entity->decoding_key) {
-            throw new \Exception('There was a problem validating the decrypt key');
-        }
+        $fields = $request->only('entity_id', 'document_key');
 
         $document = Document::loadFromUuid($documentId);
 
-        $decryptedDocument = $this->decryptFile($document->blob, $fields['document_key']);
+        $decryptedDocument = $this->decryptFile($document->file, $fields['document_key']);
 
-        return base64_encode($decryptedDocument);
+        if ($document->hash !== md5($decryptedDocument)) {
+            throw new \Exception('Integrity mismatch, so refusing to return document. Contact support.');
+        }
+
+        header(sprintf('Content-Hash: %s', $document->hash));
+        header(sprintf('Content-Type: %s', $document->mimetype));
+        header(sprintf('Content-Length: %s', $document->size));
+        echo $decryptedDocument;
+        die();
     }
 
     /**

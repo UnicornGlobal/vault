@@ -43,7 +43,7 @@ $router->group(
             });
 
             $router->group(['middleware' => ['entity', 'decode']], function () use ($router) {
-                $router->post('/document/retrieve/{documentId}', 'DocumentController@retrieveDocument');
+                $router->post('/document/{documentId}', 'DocumentController@retrieveDocument');
             });
 
             $router->group(['middleware' => 'register'], function () use ($router) {

@@ -13,7 +13,7 @@ class ConfigController extends Controller
     {
         return response()->json([
             'app_id' => env('APP_ID'),
-            'api_url' => env('API_URL'),
+            'api_url' => env('APP_URL'),
             'name' => env('APP_NAME'),
             'version' => env('APP_VERSION'),
         ]);
