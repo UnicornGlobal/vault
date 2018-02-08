@@ -1,4 +1,4 @@
-# Vault
+## Vault
 
 Secure, Compliant Document Storage
 
