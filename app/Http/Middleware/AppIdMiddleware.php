@@ -9,9 +9,10 @@ class AppIdMiddleware
     /**
      * Run the request filter.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string  $role
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     * @param string                   $role
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)

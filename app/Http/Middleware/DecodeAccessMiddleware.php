@@ -8,12 +8,14 @@ use Closure;
 class DecodeAccessMiddleware
 {
     /**
-     * Ensures that the client/user has the correct ID and KEY
+     * Ensures that the client/user has the correct ID and KEY.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @return mixed
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function handle($request, Closure $next)
     {

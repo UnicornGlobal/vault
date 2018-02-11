@@ -1,7 +1,5 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class RootServerErrorTest extends TestCase
 {
@@ -47,8 +45,8 @@ class RootServerErrorTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->actingAs($user)->get('/api', [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
+            'App'           => env('APP_ID'),
+            'Client'        => $user->app_id,
             'Authorization' => $user->app_key,
         ]);
 

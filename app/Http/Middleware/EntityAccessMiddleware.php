@@ -2,20 +2,22 @@
 
 namespace App\Http\Middleware;
 
-use App\User;
 use App\Entity;
+use App\User;
 use Closure;
 use Illuminate\Support\Facades\Hash;
 
 class EntityAccessMiddleware
 {
     /**
-     * Ensures that the user can access the entity
+     * Ensures that the user can access the entity.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @return mixed
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function handle($request, Closure $next)
     {

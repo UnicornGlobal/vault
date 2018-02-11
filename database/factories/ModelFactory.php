@@ -13,7 +13,7 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'app_id' => env('APP_USER'),
+        'app_id'  => env('APP_USER'),
         'app_key' => env('APP_PASS'),
     ];
 });

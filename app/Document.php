@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Document extends BaseModel {
-
+class Document extends BaseModel
+{
     use SoftDeletes;
 
     /**
-     * This model needs timestamps
+     * This model needs timestamps.
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = true;
 
@@ -41,7 +41,7 @@ class Document extends BaseModel {
     ];
 
     /**
-     * All dates
+     * All dates.
      *
      * @var array
      */

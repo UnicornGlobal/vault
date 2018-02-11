@@ -1,8 +1,5 @@
 <?php
 
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-/**
+/*
  * Includes a set of security-focused middeware
  *
  * You can see more info on each of them in the Http/Middleware folder
@@ -24,13 +21,13 @@ use Illuminate\Support\Facades\Auth;
  */
 $router->group(
     [
-        'prefix' => '',
-        'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors', 'client', 'appid']
+        'prefix'     => '',
+        'middleware' => ['nocache', 'hideserver', 'security', 'csp', 'cors', 'client', 'appid'],
     ],
     function () use ($router) {
         $router->get('/config/app', 'ConfigController@getAppConfig');
 
-        /**
+        /*
          * Authenticated Routes
          */
         $router->group(['prefix' => 'api'], function () use ($router) {

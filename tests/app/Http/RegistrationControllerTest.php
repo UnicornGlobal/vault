@@ -1,6 +1,5 @@
 <?php
 
-use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class RegistrationControllerTest extends TestCase
@@ -13,13 +12,13 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -29,7 +28,7 @@ class RegistrationControllerTest extends TestCase
 
         $this->assertEquals('object', gettype($result));
 
-        $this->assertEquals(5, count((array)$result));
+        $this->assertEquals(5, count((array) $result));
 
         $this->assertRegExp(
             '/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/',
@@ -60,26 +59,26 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
         $this->assertEquals('200', $this->response->status());
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -98,9 +97,9 @@ class RegistrationControllerTest extends TestCase
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -116,13 +115,13 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => '',
+            'key'    => '',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -141,9 +140,9 @@ class RegistrationControllerTest extends TestCase
             'key' => 'dssdf',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -159,13 +158,13 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'dfgsdfgs',
+            'key'    => 'dfgsdfgs',
             'secret' => '',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -180,12 +179,12 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'Client' => $user->app_id,
-            'Authorization' => $user->app_key,
+            'Client'                  => $user->app_id,
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
 
@@ -202,12 +201,12 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
+            'App'           => env('APP_ID'),
+            'Client'        => $user->app_id,
             'Authorization' => $user->app_key,
         ]);
         $this->assertEquals(
@@ -223,12 +222,12 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
         $this->assertEquals(
@@ -244,12 +243,12 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
         $this->assertEquals(
@@ -265,13 +264,13 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => 'dfsdsfdfsf',
-            'Authorization' => $user->app_key,
+            'App'                     => env('APP_ID'),
+            'Client'                  => 'dfsdsfdfsf',
+            'Authorization'           => $user->app_key,
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
         $this->assertEquals(
@@ -287,13 +286,13 @@ class RegistrationControllerTest extends TestCase
         $user = factory('App\User')->make();
 
         $this->post('/api/register', [
-            'key' => 'test-key',
+            'key'    => 'test-key',
             'secret' => 'supersecret',
         ],
         [
-            'App' => env('APP_ID'),
-            'Client' => $user->app_id,
-            'Authorization' => 'adfssdfasfd',
+            'App'                     => env('APP_ID'),
+            'Client'                  => $user->app_id,
+            'Authorization'           => 'adfssdfasfd',
             'Registration-Access-Key' => env('REGISTRATION_ACCESS_KEY'),
         ]);
         $this->assertEquals(

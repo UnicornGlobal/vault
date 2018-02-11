@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Entity;
-use Webpatser\Uuid\Uuid;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Webpatser\Uuid\Uuid;
 
 class RegistrationController extends Controller
 {
@@ -15,13 +14,15 @@ class RegistrationController extends Controller
      * Function for registering entities.
      *
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     *
      * @throws \Exception
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function registerEntity(Request $request)
     {
         $this->validate($request, [
-            'key' => 'required',
+            'key'    => 'required',
             'secret' => 'required',
         ]);
 
@@ -43,6 +44,7 @@ class RegistrationController extends Controller
             $entity->decode_key = Uuid::generate(4)->string;
             $entity->user_id = $user->id;
             $entity->save();
+
             return response()->json($entity, '200');
         } catch (\Exception $e) {
             throw new \Exception(sprintf('There was a problem registering the entity. %s.', $e->getMessage()));

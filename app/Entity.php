@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Entity extends BaseModel {
-
+class Entity extends BaseModel
+{
     use SoftDeletes;
     /**
-     * This model needs timestamps
+     * This model needs timestamps.
      *
-     * @var boolean
+     * @var bool
      */
     public $timestamps = true;
 
