@@ -15,9 +15,11 @@ class Users extends Seeder
     {
         Model::unguard();
 
+        User::where('id', 1)->forceDelete();
+
         User::create([
             'id'         => 1,
-            '_id'        => '55A80FE-CA2E-4F69-9E36-81C9237D99B2',
+            '_id'        => env('APP_USER_ID'),
             'app_id'     => env('APP_USER'),
             'app_key'    => env('APP_PASS'),
             'ip_address' => env('APP_USER_IP'),

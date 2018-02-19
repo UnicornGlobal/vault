@@ -16,15 +16,34 @@ before_install:
 - sudo mysql_upgrade
 - mysql -e 'CREATE DATABASE IF NOT EXISTS vault;'
 - composer self-update
+- composer validate --no-check-all --ansi
 - composer install -n
 - cp .env.example .env
-- cat .env
 - php artisan migrate
 - php artisan db:seed
-- composer dump-autoload
 - vendor/bin/phpunit --coverage-clover=coverage.xml
-- cat storage/logs/lumen.log
-after_success:
 - rm .env
+script:
+# You must setup your own keys and customize your own command for your own instance of vault
+# - openssl aes-256-cbc -K $encrypted_key -iv $encrypted_iv
+  # -in scripts/deploy_rsa.enc -out /tmp/deploy_rsa -d
+# - eval "$(ssh-agent -s)"
+# - chmod 600 /tmp/deploy_rsa
+# - ssh-add /tmp/deploy_rsa
+addons:
+  ssh_known_hosts:
+    - ${DEPLOY_HOST}
+after_success:
 - bash <(curl -s https://codecov.io/bash)
 - echo "Unicorn Time"
+deploy:
+  - provider: script
+    script: ./scripts/travis.sh
+    skip_cleanup: true
+    on:
+      branch: dev
+  - provider: script
+    script: ./scripts/travis.sh
+    skip_cleanup: true
+    on:
+      branch: master
