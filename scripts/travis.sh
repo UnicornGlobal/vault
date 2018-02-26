@@ -24,11 +24,10 @@ function submit() {
 }
 
 function deploy_dev() {
-    # echo "Deploying Dev Branch to Staging"
-    echo "DEPLOY TO DEV DISABLED"
+    echo "Deploying Dev Branch to Staging"
 
-    # package
-    # submit ${DEPLOY_PORT} ${DEPLOY_USER} ${DEPLOY_HOST}
+    package
+    submit ${DEPLOY_PORT} ${DEPLOY_USER} ${DEPLOY_HOST}
 }
 
 function deploy_prod() {

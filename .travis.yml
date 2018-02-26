@@ -22,7 +22,6 @@ before_install:
 - php artisan migrate
 - php artisan db:seed
 - vendor/bin/phpunit --coverage-clover=coverage.xml
-- rm .env
 script:
 # You must setup your own keys and customize your own command for your own instance of vault
 # - openssl aes-256-cbc -K $encrypted_key -iv $encrypted_iv
