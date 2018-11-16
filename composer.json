@@ -1,7 +1,7 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "unicorn-global/vault",
+    "description": "Secure Document Storage",
+    "keywords": ["secure", "documents", "storage", "encrypted"],
     "license": "MIT",
     "type": "project",
     "require": {
