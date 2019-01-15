@@ -352,4 +352,10 @@ Reload
 sudo systemctl restart apache2
 ```
 
+# Authors
 
+Add yourself here if you contribute.
+
+* [Brian Maiyo](https://github.com/kiproping)
+* [Darryn Ten](https://github.com/darrynten)
+* [Unicorn Global et al](https://github.com/UnicornGlobal)
