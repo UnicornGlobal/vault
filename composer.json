@@ -1,5 +1,6 @@
 {
-    "name": "unicorn-global/vault",
+    "name": "unicorn/vault",
+    "version": "1.0.0",
     "description": "Secure Document Storage",
     "keywords": ["secure", "documents", "storage", "encrypted"],
     "license": "MIT",
