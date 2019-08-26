@@ -51,7 +51,7 @@ class RootServerErrorTest extends TestCase
         ]);
 
         $this->assertEquals(
-            'Lumen (5.5.2) (Laravel Components 5.5.*)',
+            'Lumen (5.7.8) (Laravel Components 5.7.*)',
             $this->response->getContent()
         );
 

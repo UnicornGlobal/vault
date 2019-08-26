@@ -10,7 +10,7 @@
         "laravel/lumen-framework": "5.7.*",
         "vlucas/phpdotenv": "~2.2",
         "phpseclib/phpseclib": "^2.0",
-        "barryvdh/laravel-cors": "^0.10.0",
+        "barryvdh/laravel-cors": "^0.11.2",
         "webpatser/laravel-uuid": "^3.0",
         "guzzlehttp/guzzle": "^6.3"
     },
