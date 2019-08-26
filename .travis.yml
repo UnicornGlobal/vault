@@ -7,8 +7,6 @@ php:
 sudo: true
 addons:
   apt:
-    sources:
-      - mysql-5.7
     packages:
       - mysql-server
   ssh_known_hosts:
