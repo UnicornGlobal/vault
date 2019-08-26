@@ -11,3 +11,4 @@ coverage.xml
 *.pem
 *.orig
 scripts/deploy_rsa.enc
+.phpunit.result.cache
