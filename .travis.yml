@@ -14,7 +14,7 @@ addons:
       - mysql-client
   ssh_known_hosts:
     - ${DEPLOY_HOST}
-before_install:
+before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS vault;'
   - composer self-update
   - composer validate --no-check-all --ansi
