@@ -1,7 +1,7 @@
 dist: xenial
 language: php
 services:
-  - mysql-server
+  - mysql
 php:
   - 7.2
 sudo: true
