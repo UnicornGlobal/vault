@@ -1,9 +1,9 @@
+dist: xenial
 language: php
 services:
   - mysql-server
 php:
   - 7.1.11
-dist: trusty
 sudo: true
 addons:
   apt:
