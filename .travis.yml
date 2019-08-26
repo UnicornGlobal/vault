@@ -1,6 +1,6 @@
 language: php
 services:
-  - mysql
+  - mysql-server
 php:
   - 7.1.11
 dist: trusty
@@ -11,6 +11,7 @@ addons:
       - mysql-5.7-trusty
     packages:
       - mysql-server
+      - mysql-client
   ssh_known_hosts:
     - ${DEPLOY_HOST}
 before_install:
