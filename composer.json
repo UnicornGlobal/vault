@@ -8,7 +8,7 @@
     "require": {
         "php": ">=7.0",
         "laravel/lumen-framework": "5.8.*",
-        "vlucas/phpdotenv": "~3.4.0",
+        "vlucas/phpdotenv": "~3.5.0",
         "phpseclib/phpseclib": "^2.0",
         "barryvdh/laravel-cors": "^0.11.3",
         "webpatser/laravel-uuid": "^3.0",
